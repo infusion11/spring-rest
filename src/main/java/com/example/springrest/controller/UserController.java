@@ -34,8 +34,9 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
     //ADMIN only
-    @GetMapping("/getuser")
-    public ResponseEntity<Optional<User>> getUser(@RequestBody String username){
+    @GetMapping("/getuser/{username}")
+    public ResponseEntity<Optional<User>> getUser(@PathVariable("username") String username){
+        System.out.println(username);
         Optional<User> user = userService.getUser(username);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

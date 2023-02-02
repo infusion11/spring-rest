@@ -31,7 +31,7 @@ public class SecurityConfig {
                         "/restapi/v1/story/getvipstories",
                         "/restapi/v1/story/getbywriter").hasAnyRole("VIP", "ADMIN")
                 .requestMatchers(HttpMethod.GET,
-                        "restapi/v1/user/getuser").hasRole("ADMIN")
+                        "restapi/v1/user/getuser/**").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.POST,
                         "restapi/v1/user/addrole",
                                 "restapi/v1/user/giveroletouser",

@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         Collection<Role> role = new ArrayList<>();
-        role.add(roleRepository.findByName("ROLE_USER"));
+        role.add(roleRepository.findByName("ROLE_USER").get());
         user.setRole(role);
         return userRepository.save(user);
     }
@@ -51,7 +51,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void giveRoleToUser(String username, String role) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
-        Role roleToAdd = roleRepository.findByName(role);
+        Role roleToAdd = roleRepository.findByName(role)
+                .orElseThrow(() -> new RuntimeException("Role does not exists."));
+        System.out.println(roleToAdd);
         if(!optionalUser.isPresent()) {
             throw new RuntimeException("User does not exists.");
         }
